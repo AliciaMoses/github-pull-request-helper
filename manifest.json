@@ -1,0 +1,18 @@
+{
+    "manifest_version": 3,
+    "name": "Pull Request Helper",
+    "description": "a tool for viewing pull requests locally and in the browser",
+    "version": "1.0",
+    "permissions": [
+        "clipboardWrite",
+        "activeTab"
+    ],
+    "background": {
+    },
+    "action": {
+        "default_popup": "popup/popup.html",
+        "default_icon": {
+            "64": "statics/icon_.png"
+        }
+    }
+}
