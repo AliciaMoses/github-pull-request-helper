@@ -1,21 +1,22 @@
 
-async function copyGitCheckoutCommand(){
 document.getElementById("clipboardBtn").addEventListener("click", async () => {
-    const [tab] = await chrome.tabs.query({
-        active: true,
-        currentWindow: true
-    });
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
     if (tab.url.includes("github.com") && tab.url.includes("/pull/")) {
         const prNumber = tab.url.match(/\/pull\/(\d+)/)[1];
         const command = `git fetch origin pull/${prNumber}/head\n git checkout pr/${prNumber}`;
-        await navigator.clipboard.writeText(command);
-        alert("Command copied to clipboard");
+
+        try {
+            await navigator.clipboard.writeText(command);
+            alert("Command copied to clipboard");
+        } catch (err) {
+            console.error("Clipboard copy failed:", err);
+            alert("Failed to copy command");
+        }
     } else {
         alert("Please navigate to a GitHub pull request");
-        }
-    });
-};
-
+    }
+});
 
 document.getElementById("switchBtn").addEventListener("click", async () => {
     const [tab] = await chrome.tabs.query({
@@ -73,4 +74,3 @@ document.getElementById("masterBranchBtn").addEventListener("click", async () =>
         alert("Not on a GitHub file page");
     }
 });
-// todo, refactor this code
